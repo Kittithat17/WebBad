@@ -6,5 +6,5 @@ type NavLinks={
     { href: "/", label: "Home" },
     { href: "/ranking", label: "Ranking" },
     { href: "/match", label: "Match" },
-    { href: "/hall", label: "Hall" },
+    { href: "/register", label: "Register" },
   ];

@@ -1,27 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useAuth } from "./AuthContext"; // ✅ Import useAuth
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Dropdownn from "./Dropdownn";
 import LoginDia from "./LoginDia";
 
-
 const Loginadmin = () => {
+  const { isAdminLoggedIn, setIsAdminLoggedIn } = useAuth(); // ✅ ดึงค่าจาก Context
   const [open, setOpen] = useState(false);
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
-
-  // โหลดค่า isAdminLoggedIn จาก localStorage เมื่อหน้าโหลด
-  useEffect(() => {
-    const storedAdminStatus = localStorage.getItem("isAdminLoggedIn");
-    if (storedAdminStatus === "true") {
-      setIsAdminLoggedIn(true);
-    }
-  }, []);
 
   return (
     <div>
       {isAdminLoggedIn ? (
-        <Dropdownn onLogout={() => setIsAdminLoggedIn(false)} />
+        <Dropdownn
+          onLogout={() => {
+            setIsAdminLoggedIn(false);
+            localStorage.removeItem("isAdminLoggedIn"); // ✅ อัปเดตค่าทันที
+          }}
+        />
       ) : (
         <Button
           variant="outline"
@@ -36,7 +33,10 @@ const Loginadmin = () => {
       <LoginDia
         open={open}
         onClose={() => setOpen(false)}
-        onLoginSuccess={() => setIsAdminLoggedIn(true)}
+        onLoginSuccess={() => {
+          setIsAdminLoggedIn(true);
+          localStorage.setItem("isAdminLoggedIn", "true"); // ✅ อัปเดตค่าทันที
+        }}
       />
     </div>
   );

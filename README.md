@@ -1,7 +1,7 @@
 WEBSITE BADMINTON
 -----------------
 
-### Skills
+### Tools
 
 
 <p align="left">
